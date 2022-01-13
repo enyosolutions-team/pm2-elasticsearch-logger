@@ -10,7 +10,7 @@ pmx.initModule({}, (err, conf) => {
 
     const config = {
         index: conf.index || 'pm2',
-        type: conf.type || 'pm2',
+        type: conf.type || '_doc',
         host: conf.host || os.hostname(),
         elasticUrl: conf.elasticUrl || 'http://localhost:9200',
         insecure: conf.insecure || false
@@ -28,7 +28,21 @@ pmx.initModule({}, (err, conf) => {
             source,
             id: msg.process.pm_id,
             process: msg.process.name,
-            message: msg.data
+            message: msg.data,
+            level: source === 'stderr' ? 'error' : 'info',
+            dataset: `${config.host}-${msg.process.name}`,
+            event: {
+                "kind": "event",
+                "host": {
+                "hostname": config.host,
+                "name": msg.process.name,
+                }
+            },
+ 
+            tags: ['pm2', 'node', msg.process.name],
+            agent: {
+                name: 'filebeat'
+            }
         };
 
         const body = JSON.stringify(data);
