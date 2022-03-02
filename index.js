@@ -26,11 +26,20 @@ pmx.initModule({}, (err, conf) => {
             '@timestamp': d.toISOString(),
             host: config.host,
             source,
+            logger: 'pm2',
             id: msg.process.pm_id,
             process: msg.process.name,
             message: msg.data,
             level: source === 'stderr' ? 'error' : 'info',
             dataset: `${config.host}-${msg.process.name}`,
+            host: {
+                "hostname": config.host,
+                "name": config.host,
+            },
+            beat: {
+              "hostname": msg.process.name,
+              "name": msg.process.name,
+            },
             event: {
                 "kind": "event",
                 "host": {
