@@ -13,7 +13,7 @@ pmx.initModule({}, (err, conf) => {
         type: conf.type || '_doc',
         host: conf.host || os.hostname(),
         elasticUrl: conf.elasticUrl || 'http://localhost:9200',
-        insecure: conf.insecure || false
+        insecure: conf.insecure !== undefined ? conf.insecure : true
     };
 
     let url;
