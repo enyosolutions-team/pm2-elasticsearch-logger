@@ -29,6 +29,7 @@ pmx.initModule({}, (err, conf) => {
             logger: 'pm2',
             id: msg.process.pm_id,
             process: msg.process.name,
+            appName: msg.process.name,
             message: msg.data,
             level: source === 'stderr' ? 'error' : 'info',
             dataset: `${config.host}-${msg.process.name}`,
