@@ -19,9 +19,9 @@
   "config": {
     "elasticUrl": "http://localhost:9200",
     "index": "pm2",
-    "type": "pm2",
+    "type": "_doc",
     "host": "",
-    "insecure": false
+    "insecure": true
   },
   "apps": [
     {
